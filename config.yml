@@ -1,6 +1,7 @@
 host:
   secret: "faputa"
   port: 5000
+  debug: True
 web:
   theme: "mdui"
   title: "Status Sosu!"

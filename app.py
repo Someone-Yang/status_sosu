@@ -13,9 +13,12 @@ app.register_blueprint(web, url_prefix='/')
 
 if __name__ == '__main__':
   appPort = config["host"]["port"]
+  debug = config["host"]["debug"]
+  if debug is None:
+    debug = False
   if appPort:
     print(f"Host will run on port {appPort} sosu!")
   else:
     print(f"No specific port. Host will run on default 14514 sosu.")
     appPort = 14514
-  app.run(port=appPort,debug=True)
+  app.run(port=appPort,debug=debug)
