@@ -6,14 +6,14 @@ from web import web
 app = Flask(__name__)
 
 try:
-  with open('./config.yml', 'r', encoding='utf-8') as f:
+  with open('config.yml', 'r', encoding='utf-8') as f:
     config = yaml.load(f.read(), Loader=yaml.FullLoader)
 except:
   print("Failed to read config file.")
   exit()
 
-app.register_blueprint(sync, url_prefix='/sync')
-app.register_blueprint(web, url_prefix='/')
+app.register_blueprint(sync)
+app.register_blueprint(web)
 
 if __name__ == '__main__':
   appPort = config["host"]["port"]

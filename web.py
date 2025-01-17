@@ -4,7 +4,7 @@ import yaml
 web = Blueprint('web', __name__)
 
 try:
-  with open('./config.yml', 'r', encoding='utf-8') as f:
+  with open('config.yml', 'r', encoding='utf-8') as f:
     config = yaml.load(f.read(), Loader=yaml.FullLoader)
 except:
   print("Failed to read config file.")
@@ -17,7 +17,7 @@ def index():
   datas = []
   for client in config["client"].keys():
     try:
-      with open(f'./sync/{client}.json', 'r', encoding='utf-8') as sf:
+      with open(f'sync/{client}.json', 'r', encoding='utf-8') as sf:
         data = json.loads(sf.read())
         data["clientname"] = client
         datas.append(data)
