@@ -1,6 +1,6 @@
 # 探针索斯！
 
-一款使用 Python Flask 和 Psutil 进行数据展示和采集的轻量设备探针索斯！。
+一款使用 Python Flask 和 Psutil 进行数据展示和采集的轻量设备探针索斯！
 
 ## 安装
 
@@ -46,8 +46,61 @@ host:
   secret: "faputa"
   # 网页端口
   port: 5000
+web:
+  # 设置主题，模板保存在 templates 目录
+  theme: "mdui"
+  # 以下全部为模板可配置字段
+  title: "Status Sosu!"
+  mdui-primary-color: "indigo"
 client:
   # 一个名字代表一个需要展示的被测端
   # 被测端 clientname 需要与此处设置一致
   demo:
+    # 设备名
+    name: "Nanachi"
+    # 是否显示系统信息及可选自定义系统名
+    system:
+      display: True
+      custom: "Custom system name"
+    # 是否显示处理器信息及可选自定义处理器名
+    processor:
+      display: True
+      custom: "Custom CPU name"
+    # 架构信息，同理
+    machine:
+      display: True
+      custom: "DMA66"
+    # CPU使用率
+    cpu-usage:
+      display: True
+    # 内存使用率
+    mem-usage:
+      display: True
+    # 硬盘使用率
+    disk:
+      display: True
+    # 网络数据
+    network:
+      display: True
+  # 再举例标记一个 test 的机器
+  test:
+    name: "Another test server"
+    system:
+      display: True
+      custom: "Better than nothing"
+    # 自定义名称留空就不是自定义了
+    processor:
+      display: True
+      custom: ""
+    machine:
+      display: False
+      custom: ""
+    cpu-usage:
+      display: True
+    mem-usage:
+      display: True
+    disk:
+      display: False
+    network:
+      display: True
 ```

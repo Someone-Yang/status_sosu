@@ -26,22 +26,22 @@ client:
     network:
       display: True
   test:
-    name: "Nanachi"
+    name: "Another test server"
     system:
       display: True
-      custom: "Custom system name"
+      custom: "Better than nothing"
     processor:
       display: True
-      custom: "Custom CPU name"
+      custom: ""
     machine:
-      display: True
-      custom: "DMA66"
+      display: False
+      custom: ""
     cpu-usage:
       display: True
     mem-usage:
       display: True
     disk:
-      display: True
+      display: False
     network:
       display: True
 
