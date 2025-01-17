@@ -6,6 +6,8 @@ web = Blueprint('web', __name__)
 with open('./config.yml', 'r', encoding='utf-8') as f:
   config = yaml.load(f.read(), Loader=yaml.FullLoader)
 
+theme = config['host']['theme']
+
 @web.route('/', methods=['GET'])
 def index():
   datas = []
@@ -14,4 +16,4 @@ def index():
       data = json.loads(sf.read())
       data["clientname"] = client
       datas.append(data)
-  return render_template('index.html', config=config["client"], datas=datas)
+  return render_template(f'{theme}/index.html', client=config['client'], datas=datas, theme=config['theme'][theme])

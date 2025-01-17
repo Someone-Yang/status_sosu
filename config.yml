@@ -1,5 +1,10 @@
 host:
   secret: "faputa"
   port: 5000
+  theme: "mdui"
+theme:
+  mdui:
+    title: "Status Sosu!"
+    primary-color: "indigo"
 client:
   demo:
