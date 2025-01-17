@@ -1,0 +1,5 @@
+host:
+  secret: "faputa"
+  port: 5000
+client:
+  demo:

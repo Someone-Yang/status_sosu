@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+    <title>Status Sosu</title>
+  </head>
+  <body class="mdui-theme-primary-indigo">
+    <div class="mdui-appbar">
+      <div class="mdui-toolbar mdui-color-theme">
+        <a href="javascript:;" class="mdui-typo-headline">服务器状态</a>
+        <a href="javascript:;" class="mdui-typo-title">索斯！</a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon">
+          <i class="mdui-icon material-icons" onclick="location.reload();">refresh</i>
+        </a>
+      </div>
+    </div>
+    <div class="mdui-container">
+      <h1>{{ datas|length }} 个服务器信息</h1>
+      <div class="mdui-row-xs-3">
+      {% for data in datas %}
+        <div class="mdui-col">
+
+          <div class="mdui-card mdui-m-y-1 mdui-hoverable">
+            <div class="mdui-card-primary">
+              <div class="mdui-card-primary-title">
+                {{ data['clientname'] }}
+              </div>
+            </div>
+            <div class="mdui-card-content">
+              <p>系统: {{ data['system'] }}</p>
+              <p>CPU: {{ data['processor'] }}(架构：{{ data['machine'] }})</p>
+              <span>
+                CPU 使用率：{{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }} Mhz ({{ data['cpu_usage']['physical_cores'] }}核{{ data['cpu_usage']['total_cores'] }}线程)
+                <div class="mdui-progress">
+                  <div class="mdui-progress-determinate" style="width: {{ data['cpu_usage']['usage'] }}%;"></div>
+                </div>
+              </span>
+              <span>
+                内存使用率：{{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)
+                <div class="mdui-progress">
+                  <div class="mdui-progress-determinate" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
+                </div>
+              </span>
+              <p>硬盘：</p>
+              {% for disk in data['disk'] %}
+              <span>
+                挂载点{{ disk['mountpoint'] }}使用率：{{ disk['usage'] }}% ({{ disk['used'] }}GB/{{ disk['total'] }}GB)
+                <div class="mdui-progress">
+                  <div class="mdui-progress-determinate" style="width: {{ disk['usage'] }}%;"></div>
+                </div>
+              </span>
+              {% endfor %}
+              <p>网络：已上传{{ data['network']['sent'] }}/已下载{{ data['network']['received'] }}</p>
+            </div>
+          </div>
+
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+    
+
+    <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+  </body>
+</html>
