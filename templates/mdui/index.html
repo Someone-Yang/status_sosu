@@ -93,7 +93,7 @@
               {% endif %}
               {% if client[data['clientname']]['network']['display'] %}
               <p><b><i class="mdui-icon material-icons">network_check</i> 网络：</b></p>
-              <p>上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['sentd']/1024/1024/data['timed'])|round(2) }}MB/s) / 下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['receivedd']/1024/1024/data['timed'])|round(2) }}MB/s)</p>
+              <p>上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['sentd']/1024/1024/data['recordd'])|round(2) }}MB/s) / 下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['receivedd']/1024/1024/data['recordd'])|round(2) }}MB/s)</p>
               {% endif %}
             </div>
           </div>
