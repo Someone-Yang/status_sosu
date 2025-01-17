@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json, render_template
-import yaml
+import yaml,datetime
  
 web = Blueprint('web', __name__)
 
@@ -19,7 +19,9 @@ def index():
     try:
       with open(f'sync/{client}.json', 'r', encoding='utf-8') as sf:
         data = json.loads(sf.read())
+        current_time = int(datetime.datetime.now().timestamp())
         data["clientname"] = client
+        data["timed"] = current_time - data['lastrecord']
         datas.append(data)
     except:
       print(f"Could not read saved file for clientname {client}, skip.")

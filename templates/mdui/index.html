@@ -19,7 +19,7 @@
     </div>
     <div class="mdui-container">
       <h1>{{ datas|length }} 个服务器信息</h1>
-      <div class="mdui-row-xs-3">
+      <div class="mdui-row-xs-1 mdui-row-md-2 mdui-row-lg-3">
       {% for data in datas %}
         <div class="mdui-col">
 
@@ -33,6 +33,20 @@
               </div>
             </div>
             <div class="mdui-card-content">
+              <div class="mdui-chip">
+                <span class="mdui-chip-icon mdui-color-{% if data['timed'] < 120 %}green{% elif data['timed'] < 300 %}orange{% else %}red{% endif %}">
+                  <i class="mdui-icon material-icons">
+                    {% if data['timed'] < 120 %}
+                    check
+                    {% elif data['timed'] < 300 %}
+                    warning
+                    {% else %}
+                    close
+                    {% endif %}
+                  </i>
+                </span>
+                <span class="mdui-chip-title">{{ data['timed'] }} 秒前更新</span>
+              </div>
               {% if client[data['clientname']]['system']['display'] %}
               <p><b>系统:</b> {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
               {% endif %}
@@ -62,7 +76,7 @@
               <span>
                 <b>交换使用率：</b>{{ data['swap_usage']['usage'] }}%{% if client[data['clientname']]['swap-usage']['show-detail'] %} ({{ data['swap_usage']['used'] }}GB/{{ data['swap_usage']['total'] }}GB){% endif %}
                 <div class="mdui-progress">
-                  <div class="mdui-progress-determinate mdui-color-{% if data['mem_usage']['usage'] >= 85 %}red{% elif data['mem_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
+                  <div class="mdui-progress-determinate mdui-color-{% if data['swap_usage']['usage'] >= 85 %}red{% elif data['swap_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['swap_usage']['usage'] }}%;"></div>
                 </div>
               </span>
               {% endif %}
@@ -78,7 +92,8 @@
               {% endfor %}
               {% endif %}
               {% if client[data['clientname']]['network']['display'] %}
-              <p><b>网络：</b> 已上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB/已下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB</p>
+              <p><b>网络：</b></p>
+              <p>上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['sentd']/1024/1024/data['timed'])|round(2) }}MB/s) / 下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['receivedd']/1024/1024/data['timed'])|round(2) }}MB/s)</p>
               {% endif %}
             </div>
           </div>
