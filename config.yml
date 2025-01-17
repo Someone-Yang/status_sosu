@@ -21,12 +21,17 @@ client:
       custom: "DMA66"
     cpu-usage:
       display: True
+      show-frequency: True
+      show-cores: True
     mem-usage:
       display: True
+      show-detail: True
     swap-usage:
       display: True
+      show-detail: True
     disk:
       display: True
+      show-detail: True
     network:
       display: True
   test:
@@ -43,12 +48,17 @@ client:
       custom: ""
     cpu-usage:
       display: True
+      show-frequency: True
+      show-cores: True
     mem-usage:
       display: True
+      show-detail: True
     swap-usage:
       display: True
+      show-detail: True
     disk:
       display: False
+      show-detail: True
     network:
       display: True
 
