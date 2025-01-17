@@ -28,14 +28,17 @@
               <div class="mdui-card-primary-title">
                 {{ client[data['clientname']]['name'] }}
               </div>
+              <div class="mdui-card-primary-subtitle">
+                {{ client[data['clientname']]['note'] }}
+              </div>
             </div>
             <div class="mdui-card-content">
               {% if client[data['clientname']]['system']['display'] %}
-              <p>系统: {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
+              <p><b>系统:</b> {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
               {% endif %}
               {% if client[data['clientname']]['processor']['display'] %}
               <p>
-                CPU: {% if client[data['clientname']]['processor']['custom'] %}{{ client[data['clientname']]['processor']['custom'] }}{% else %}{{ data['processor'] }}{% endif %}
+                <b>CPU:</b> {% if client[data['clientname']]['processor']['custom'] %}{{ client[data['clientname']]['processor']['custom'] }}{% else %}{{ data['processor'] }}{% endif %}
                 {% if client[data['clientname']]['machine']['display'] %}
                 (架构：
                 {% if client[data['clientname']]['machine']['custom'] %}
@@ -49,7 +52,7 @@
               {% endif %}
               {% if client[data['clientname']]['cpu-usage']['display'] %}
               <span>
-                CPU 使用率：{{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }} Mhz ({{ data['cpu_usage']['physical_cores'] }}核{{ data['cpu_usage']['total_cores'] }}线程)
+                <b>CPU 使用率：</b>{{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }} Mhz ({{ data['cpu_usage']['physical_cores'] }}核{{ data['cpu_usage']['total_cores'] }}线程)
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if data['cpu_usage']['usage'] >= 85 %}red{% elif data['cpu_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['cpu_usage']['usage'] }}%;"></div>
                 </div>
@@ -57,14 +60,22 @@
               {% endif %}
               {% if client[data['clientname']]['mem-usage']['display'] %}
               <span>
-                内存使用率：{{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)
+                <b>内存使用率：</b>{{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)
+                <div class="mdui-progress">
+                  <div class="mdui-progress-determinate mdui-color-{% if data['mem_usage']['usage'] >= 85 %}red{% elif data['mem_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
+                </div>
+              </span>
+              {% endif %}
+              {% if client[data['clientname']]['swap-usage']['display'] and data['system'] != 'Windows' %}
+              <span>
+                <b>交换使用率：</b>{{ data['swap_usage']['usage'] }}% ({{ data['swap_usage']['used'] }}GB/{{ data['swap_usage']['total'] }}GB)
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if data['mem_usage']['usage'] >= 85 %}red{% elif data['mem_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
                 </div>
               </span>
               {% endif %}
               {% if client[data['clientname']]['disk']['display'] %}
-              <p>硬盘：</p>
+              <p><b>硬盘：</b></p>
               {% for disk in data['disk'] %}
               <span>
                 挂载点{{ disk['mountpoint'] }}使用率：{{ disk['usage'] }}% ({{ disk['used'] }}GB/{{ disk['total'] }}GB)
@@ -75,7 +86,7 @@
               {% endfor %}
               {% endif %}
               {% if client[data['clientname']]['network']['display'] %}
-              <p>网络：已上传 {{ data['network']['sent']/1024/1024/1024|round(2) }}GB/已下载 {{ data['network']['received']/1024/1024/1024|round(2) }}GB</p>
+              <p><b>网络：</b> 已上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB/已下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB</p>
               {% endif %}
             </div>
           </div>

@@ -9,6 +9,7 @@ web:
 client:
   demo:
     name: "Nanachi"
+    note: "naaaaaa"
     system:
       display: True
       custom: "Custom system name"
@@ -22,12 +23,15 @@ client:
       display: True
     mem-usage:
       display: True
+    swap-usage:
+      display: True
     disk:
       display: True
     network:
       display: True
   test:
     name: "Another test server"
+    note: "let it go"
     system:
       display: True
       custom: "Better than nothing"
@@ -40,6 +44,8 @@ client:
     cpu-usage:
       display: True
     mem-usage:
+      display: True
+    swap-usage:
       display: True
     disk:
       display: False

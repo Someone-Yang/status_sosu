@@ -13,6 +13,9 @@
     <p>Processor: {{ data['processor'] }} (Machine: {{ data['machine'] }})</p>
     <p>CPU usage: {{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }}Mhz ({{ data['cpu_usage']['physical_cores'] }} Cores {{ data['cpu_usage']['total_cores'] }} Threads)</p>
     <p>Memory usage: {{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)</p>
+    {% if data['system'] != 'Windows' %}
+    <p>Swap usage: {{ data['swap_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)</p>
+    {% if %}
     <p>Disks:</p>
     <table>
       <thead>
