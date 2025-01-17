@@ -48,51 +48,51 @@
                 <span class="mdui-chip-title">{{ data['timed'] }} 秒前更新</span>
               </div>
               {% if client[data['clientname']]['system']['display'] %}
-              <p><b>系统:</b> {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
+              <p><b><i class="mdui-icon material-icons">settings</i> 系统:</b> {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
               {% endif %}
               {% if client[data['clientname']]['processor']['display'] %}
               <p>
-                <b>CPU:</b> {% if client[data['clientname']]['processor']['custom'] %}{{ client[data['clientname']]['processor']['custom'] }}{% else %}{{ data['processor'] }}{% endif %}{% if client[data['clientname']]['machine']['display'] %} (架构：{% if client[data['clientname']]['machine']['custom'] %}{{ client[data['clientname']]['machine']['custom'] }}{% else %}{{ data['machine'] }}{% endif %})
+                <b><i class="mdui-icon material-icons">power</i> CPU:</b> {% if client[data['clientname']]['processor']['custom'] %}{{ client[data['clientname']]['processor']['custom'] }}{% else %}{{ data['processor'] }}{% endif %}{% if client[data['clientname']]['machine']['display'] %} (架构：{% if client[data['clientname']]['machine']['custom'] %}{{ client[data['clientname']]['machine']['custom'] }}{% else %}{{ data['machine'] }}{% endif %})
                 {% endif %}
               </p>
               {% endif %}
               {% if client[data['clientname']]['cpu-usage']['display'] %}
-              <span>
+              <div>
                 <b>CPU 使用率：</b>{{ data['cpu_usage']['usage'] }}%{% if client[data['clientname']]['cpu-usage']['show-frequency'] %} @{{ data['cpu_usage']['frequency'] }}Mhz{% endif %}{% if client[data['clientname']]['cpu-usage']['show-cores'] %} ({{ data['cpu_usage']['physical_cores'] }}核{{ data['cpu_usage']['total_cores'] }}线程){% endif %}
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if data['cpu_usage']['usage'] >= 85 %}red{% elif data['cpu_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['cpu_usage']['usage'] }}%;"></div>
                 </div>
-              </span>
+              </div>
               {% endif %}
               {% if client[data['clientname']]['mem-usage']['display'] %}
-              <span>
+              <div>
                 <b>内存使用率：</b>{{ data['mem_usage']['usage'] }}%{% if client[data['clientname']]['mem-usage']['show-detail'] %} ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB){% endif %}
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if data['mem_usage']['usage'] >= 85 %}red{% elif data['mem_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
                 </div>
-              </span>
+              </div>
               {% endif %}
               {% if client[data['clientname']]['swap-usage']['display'] and data['system'] != 'Windows' %}
-              <span>
+              <div>
                 <b>交换使用率：</b>{{ data['swap_usage']['usage'] }}%{% if client[data['clientname']]['swap-usage']['show-detail'] %} ({{ data['swap_usage']['used'] }}GB/{{ data['swap_usage']['total'] }}GB){% endif %}
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if data['swap_usage']['usage'] >= 85 %}red{% elif data['swap_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['swap_usage']['usage'] }}%;"></div>
                 </div>
-              </span>
+              </div>
               {% endif %}
               {% if client[data['clientname']]['disk']['display'] %}
-              <p><b>硬盘：</b></p>
+              <p><b><i class="mdui-icon material-icons">storage</i> 硬盘：</b></p>
               {% for disk in data['disk'] %}
-              <span>
+              <div>
                 挂载点{{ disk['mountpoint'] }}使用率：{{ disk['usage'] }}%{% if client[data['clientname']]['disk']['show-detail'] %} ({{ disk['used'] }}GB/{{ disk['total'] }}GB){% endif %}
                 <div class="mdui-progress">
                   <div class="mdui-progress-determinate mdui-color-{% if disk['usage'] >= 85 %}red{% elif disk['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ disk['usage'] }}%;"></div>
                 </div>
-              </span>
+              </div>
               {% endfor %}
               {% endif %}
               {% if client[data['clientname']]['network']['display'] %}
-              <p><b>网络：</b></p>
+              <p><b><i class="mdui-icon material-icons">network_check</i> 网络：</b></p>
               <p>上传 {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['sentd']/1024/1024/data['timed'])|round(2) }}MB/s) / 下载 {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['receivedd']/1024/1024/data['timed'])|round(2) }}MB/s)</p>
               {% endif %}
             </div>
