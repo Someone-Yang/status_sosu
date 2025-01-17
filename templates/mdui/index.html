@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="renderer" content="webkit">
     <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
-    <title>{{ theme['title'] }}</title>
+    <title>{{ web['title'] }}</title>
   </head>
-  <body class="mdui-theme-primary-{{ theme['primary-color'] }}">
+  <body class="mdui-theme-primary-{{ web['mdui-primary-color'] }}">
     <div class="mdui-appbar">
       <div class="mdui-toolbar mdui-color-theme">
-        <a href="javascript:;" class="mdui-typo-headline">{{ theme['title'] }}</a>
+        <a href="javascript:;" class="mdui-typo-headline">{{ web['title'] }}</a>
         <div class="mdui-toolbar-spacer"></div>
         <a href="javascript:;" class="mdui-btn mdui-btn-icon">
           <i class="mdui-icon material-icons" onclick="location.reload();">refresh</i>
@@ -26,34 +26,57 @@
           <div class="mdui-card mdui-m-y-1 mdui-hoverable">
             <div class="mdui-card-primary">
               <div class="mdui-card-primary-title">
-                {{ data['clientname'] }}
+                {{ client[data['clientname']]['name'] }}
               </div>
             </div>
             <div class="mdui-card-content">
-              <p>系统: {{ data['system'] }}</p>
-              <p>CPU: {{ data['processor'] }}(架构：{{ data['machine'] }})</p>
+              {% if client[data['clientname']]['system']['display'] %}
+              <p>系统: {% if client[data['clientname']]['system']['custom'] %}{{ client[data['clientname']]['system']['custom'] }}{% else %}{{ data['system'] }}{% endif %}</p>
+              {% endif %}
+              {% if client[data['clientname']]['processor']['display'] %}
+              <p>
+                CPU: {% if client[data['clientname']]['processor']['custom'] %}{{ client[data['clientname']]['processor']['custom'] }}{% else %}{{ data['processor'] }}{% endif %}
+                {% if client[data['clientname']]['machine']['display'] %}
+                (架构：
+                {% if client[data['clientname']]['machine']['custom'] %}
+                {{ client[data['clientname']]['machine']['custom'] }}
+                {% else %}
+                {{ data['machine'] }}
+                {% endif %}
+                )
+                {% endif %}
+              </p>
+              {% endif %}
+              {% if client[data['clientname']]['cpu-usage']['display'] %}
               <span>
                 CPU 使用率：{{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }} Mhz ({{ data['cpu_usage']['physical_cores'] }}核{{ data['cpu_usage']['total_cores'] }}线程)
                 <div class="mdui-progress">
-                  <div class="mdui-progress-determinate" style="width: {{ data['cpu_usage']['usage'] }}%;"></div>
+                  <div class="mdui-progress-determinate mdui-color-{% if data['cpu_usage']['usage'] >= 85 %}red{% elif data['cpu_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['cpu_usage']['usage'] }}%;"></div>
                 </div>
               </span>
+              {% endif %}
+              {% if client[data['clientname']]['mem-usage']['display'] %}
               <span>
                 内存使用率：{{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)
                 <div class="mdui-progress">
-                  <div class="mdui-progress-determinate" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
+                  <div class="mdui-progress-determinate mdui-color-{% if data['mem_usage']['usage'] >= 85 %}red{% elif data['mem_usage']['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%;"></div>
                 </div>
               </span>
+              {% endif %}
+              {% if client[data['clientname']]['disk']['display'] %}
               <p>硬盘：</p>
               {% for disk in data['disk'] %}
               <span>
                 挂载点{{ disk['mountpoint'] }}使用率：{{ disk['usage'] }}% ({{ disk['used'] }}GB/{{ disk['total'] }}GB)
                 <div class="mdui-progress">
-                  <div class="mdui-progress-determinate" style="width: {{ disk['usage'] }}%;"></div>
+                  <div class="mdui-progress-determinate mdui-color-{% if disk['usage'] >= 85 %}red{% elif disk['usage'] >= 60 %}orange{% else %}green{% endif %}" style="width: {{ disk['usage'] }}%;"></div>
                 </div>
               </span>
               {% endfor %}
-              <p>网络：已上传{{ data['network']['sent'] }}/已下载{{ data['network']['received'] }}</p>
+              {% endif %}
+              {% if client[data['clientname']]['network']['display'] %}
+              <p>网络：已上传 {{ data['network']['sent']/1024/1024/1024|round(2) }}GB/已下载 {{ data['network']['received']/1024/1024/1024|round(2) }}GB</p>
+              {% endif %}
             </div>
           </div>
 

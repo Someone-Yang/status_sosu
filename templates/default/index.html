@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <title>Status Sosu</title>
+  </head>
+  <body>
+    <h1>Status Sosu!</h1>
+    <p>{{ datas|length }} Server{% if datas|length > 1 %}s{% endif %}</p>
+    {% for data in datas %}
+    <hr>
+    <h2>{{ client[data['clientname']]['name'] }} - Clientname: {{ data['clientname'] }}</h2>
+    <p>System: {{ data['system'] }}</p>
+    <p>Processor: {{ data['processor'] }} (Machine: {{ data['machine'] }})</p>
+    <p>CPU usage: {{ data['cpu_usage']['usage'] }}% @{{ data['cpu_usage']['frequency'] }}Mhz ({{ data['cpu_usage']['physical_cores'] }} Cores {{ data['cpu_usage']['total_cores'] }} Threads)</p>
+    <p>Memory usage: {{ data['mem_usage']['usage'] }}% ({{ data['mem_usage']['used'] }}GB/{{ data['mem_usage']['total'] }}GB)</p>
+    <p>Disks:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Device</th>
+          <th>Mountpoint</th>
+          <th>Total</th>
+          <th>Free</th>
+          <th>Used</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for disk in data['disk'] %}
+        <tr>
+          <td>{{ disk['device'] }}</td>
+          <td>{{ disk['mountpoint'] }}</td>
+          <td>{{ disk['total'] }}</td>
+          <td>{{ disk['free'] }}</td>
+          <td>{{ disk['used'] }} ({{ disk['usage'] }}%)</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p>Network: {{ data['network']['sent'] }} Sent / {{ data['network']['received'] }} Received</p>
+    {% endfor %}
+  </body>
+</html>

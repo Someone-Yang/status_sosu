@@ -1,10 +1,48 @@
 host:
   secret: "faputa"
   port: 5000
+web:
   theme: "mdui"
-theme:
-  mdui:
-    title: "Status Sosu!"
-    primary-color: "indigo"
+  title: "Status Sosu!"
+  mdui-primary-color: "indigo"
 client:
   demo:
+    name: "Nanachi"
+    system:
+      display: True
+      custom: "Custom system name"
+    processor:
+      display: True
+      custom: "Custom CPU name"
+    machine:
+      display: True
+      custom: "DMA66"
+    cpu-usage:
+      display: True
+    mem-usage:
+      display: True
+    disk:
+      display: True
+    network:
+      display: True
+  test:
+    name: "Nanachi"
+    system:
+      display: True
+      custom: "Custom system name"
+    processor:
+      display: True
+      custom: "Custom CPU name"
+    machine:
+      display: True
+      custom: "DMA66"
+    cpu-usage:
+      display: True
+    mem-usage:
+      display: True
+    disk:
+      display: True
+    network:
+      display: True
+
+    
