@@ -13,6 +13,10 @@ web:
   # 设置展示页面的主题
   # 模板保存在 templates 目录
   theme: "mdui"
+  # 被测端未上传数据标记为警告的时间间隔
+  warning-timed: 120
+  # 被测端未上传数据标记为离线的时间间隔
+  offline-timed: 300
   # 以下全部为模板可配置字段
   title: "Status Sosu!"
   mdui-primary-color: "indigo"

@@ -34,11 +34,11 @@
             </div>
             <div class="mdui-card-content">
               <div class="mdui-chip">
-                <span class="mdui-chip-icon mdui-color-{% if data['timed'] < 120 %}green{% elif data['timed'] < 300 %}orange{% else %}red{% endif %}">
+                <span class="mdui-chip-icon mdui-color-{% if data['timed'] < web['warning-timed'] %}green{% elif data['timed'] < web['offline-timed'] %}orange{% else %}red{% endif %}">
                   <i class="mdui-icon material-icons">
-                    {% if data['timed'] < 120 %}
+                    {% if data['timed'] < web['warning-timed'] %}
                     check
-                    {% elif data['timed'] < 300 %}
+                    {% elif data['timed'] < web['offline-timed'] %}
                     warning
                     {% else %}
                     close
