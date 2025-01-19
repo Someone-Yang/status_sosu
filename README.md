@@ -11,7 +11,7 @@
 
 0. 我们使用uv管理本项目**包括python本身在内**的依赖，若你没有uv，请先[下载安装uv](https://docs.astral.sh/uv/getting-started/installation/)
 
-> Linux/macOS 安装uv： `curl -LsSf https://astral.sh/uv/install.sh | sh`
+> Linux / macOS 安装uv： `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 1. 克隆本仓库
 
