@@ -9,6 +9,10 @@
 - 一台能运行 Python 的设备（例如云服务器）
 - 不支持虚拟主机
 
+0. 我们使用uv管理本项目**包括python本身在内**的依赖，若你没有uv，请先[下载安装uv](https://docs.astral.sh/uv/getting-started/installation/)
+
+> Linux系统安装uv： `curl -LsSf https://astral.sh/uv/install.sh | sh`
+
 1. 克隆本仓库
 
 ```
@@ -21,7 +25,7 @@ git clone https://github.com/Someone-Yang/status_sosu
 
 ```
 cd ./status_sosu
-python ./app.py
+uv run ./app.py
 ```
 
 4. 直接暴露端口或使用 Nginx 等服务器转发端口，以便被测端可以正常访问
