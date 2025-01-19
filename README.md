@@ -9,7 +9,7 @@
 - 一台能运行 Python 的设备（例如云服务器）
 - 不支持虚拟主机
 
-0. 我们使用uv管理本项目**包括python本身在内**的依赖，若你没有uv，请先[下载安装uv](https://docs.astral.sh/uv/getting-started/installation/)
+0. 我们使用 UV 管理本项目**包括 Python 本身在内**的依赖，若运行服务端的设备没有 UV，建议先[下载安装 UV](https://docs.astral.sh/uv/getting-started/installation/)
 
 > Linux / macOS 安装uv： `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
@@ -21,11 +21,18 @@ git clone https://github.com/Someone-Yang/status_sosu
 
 2. 按需配置
 
+请在本项目根目录 `config.yml` 配置文件中设置服务端（展示端）密钥、端口等必须信息，以便客户端（被测端）正确上传数据。
+
 3. 转到程序目录，运行主程序 `app.py`
 
 ```
 cd ./status_sosu
 uv run ./app.py
+```
+
+如果追求 *“极致的轻量化”* 没有安装 UV，也可以在拥有相关库时直接使用 Python3 运行
+```
+python3 ./app.py
 ```
 
 4. 直接暴露端口或使用 Nginx 等服务器转发端口，以便被测端可以正常访问
@@ -42,69 +49,6 @@ git pull
 
 ## 配置
 
-在根目录中有一个配置文件 `config.yml`，类似下文。
+在根目录中有一个配置文件 `config.yml`。每次修改后**需要重启服务端生效**。
 
-```
-host:
-  # 密钥，被测端需要和此处密钥填写一致
-  secret: "faputa"
-  # 网页端口
-  port: 5000
-web:
-  # 设置主题，模板保存在 templates 目录
-  theme: "mdui"
-  # 以下全部为模板可配置字段
-  title: "Status Sosu!"
-  mdui-primary-color: "indigo"
-client:
-  # 一个名字代表一个需要展示的被测端
-  # 被测端 clientname 需要与此处设置一致
-  demo:
-    # 设备名
-    name: "Nanachi"
-    # 是否显示系统信息及可选自定义系统名
-    system:
-      display: True
-      custom: "Custom system name"
-    # 是否显示处理器信息及可选自定义处理器名
-    processor:
-      display: True
-      custom: "Custom CPU name"
-    # 架构信息，同理
-    machine:
-      display: True
-      custom: "DMA66"
-    # CPU使用率
-    cpu-usage:
-      display: True
-    # 内存使用率
-    mem-usage:
-      display: True
-    # 硬盘使用率
-    disk:
-      display: True
-    # 网络数据
-    network:
-      display: True
-  # 再举例标记一个 test 的机器
-  test:
-    name: "Another test server"
-    system:
-      display: True
-      custom: "Better than nothing"
-    # 自定义名称留空就不是自定义了
-    processor:
-      display: True
-      custom: ""
-    machine:
-      display: False
-      custom: ""
-    cpu-usage:
-      display: True
-    mem-usage:
-      display: True
-    disk:
-      display: False
-    network:
-      display: True
-```
+配置功能见文件中的注释。
