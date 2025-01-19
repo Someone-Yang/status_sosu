@@ -1,0 +1,10 @@
+[project]
+name = "status-sosu"
+version = "1.0.0"
+description = "一款使用 Python Flask 和 Psutil 进行数据展示和采集的轻量设备探针索斯！"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.1.0",
+    "pyyaml>=6.0.2",
+]
