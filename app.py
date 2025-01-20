@@ -1,9 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 import yaml
 from sync import sync
 from web import web
-
-app = Flask(__name__)
 
 try:
   with open('config.yml', 'r', encoding='utf-8') as f:
@@ -11,6 +9,12 @@ try:
 except:
   print("Failed to read config file.")
   exit()
+
+theme = config['web']['theme']
+if theme is None:
+  theme = 'default'
+
+app = Flask(__name__,static_url_path='/static', static_folder=f'static/{theme}/', template_folder=f'templates/{theme}')
 
 app.register_blueprint(sync)
 app.register_blueprint(web)

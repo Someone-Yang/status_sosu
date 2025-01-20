@@ -1,7 +1,6 @@
 from flask import Blueprint, request, json
 import yaml,datetime
- 
-sync = Blueprint('sync', __name__)
+
 
 try:
   with open('config.yml', 'r', encoding='utf-8') as f:
@@ -9,6 +8,8 @@ try:
 except:
   print("Failed to read config file.")
   exit()
+
+sync = Blueprint('sync', __name__)
 
 global_secret = config['host']['secret']
 

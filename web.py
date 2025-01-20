@@ -1,8 +1,6 @@
-from flask import Blueprint, request, json, render_template
+from flask import Blueprint, json, render_template
 import yaml,datetime
  
-web = Blueprint('web', __name__)
-
 try:
   with open('config.yml', 'r', encoding='utf-8') as f:
     config = yaml.load(f.read(), Loader=yaml.FullLoader)
@@ -11,6 +9,9 @@ except:
   exit()
 
 theme = config['web']['theme']
+if theme is None:
+  theme = 'default'
+web = Blueprint('web', __name__)
 
 @web.route('/', methods=['GET'])
 def index():
@@ -26,4 +27,4 @@ def index():
     except:
       print(f"Could not read saved file for clientname {client}, skip.")
       continue
-  return render_template(f'{theme}/index.html', client=config['client'], datas=datas, web=config['web'])
+  return render_template('index.html', client=config['client'], datas=datas, web=config['web'])

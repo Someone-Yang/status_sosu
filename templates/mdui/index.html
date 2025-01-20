@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="renderer" content="webkit">
-    <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/mdui.min.css') }}">
     <title>{{ web['title'] }}</title>
   </head>
   <body class="mdui-theme-primary-{{ web['mdui-primary-color'] }}">
@@ -104,6 +104,6 @@
     </div>
     
 
-    <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+    <script src="{{ url_for('static',filename='js/mdui.min.js') }}"></script>
   </body>
 </html>
