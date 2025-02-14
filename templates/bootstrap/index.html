@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ web['title'] }}</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">{{ web['title'] }}</h1>
+        {% for data in datas %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h3>{{ client[data['clientname']]['name'] }}</h3>
+                <span class="badge text-bg-{% if data['timed'] < web['warning-timed'] %}success{% elif data['timed'] < web['offline-timed'] %}warning{% else %}danger{% endif %}">{{ data['timed'] }} 秒前更新</span>
+              </div>
+              <div class="col">
+                <small>CPU</small> {{ data['cpu_usage']['usage'] }}%
+                <div class="progress">
+                  <div class="progress-bar bg-{% if data['cpu_usage']['usage'] >= 85 %}danger{% elif data['cpu_usage']['usage'] >= 60 %}warning{% else %}success{% endif %}" style="width: {{ data['cpu_usage']['usage'] }}%"></div>
+                </div>
+              </div>
+              <div class="col">
+                <small>内存</small> {{ data['mem_usage']['usage'] }}%
+                <div class="progress">
+                  <div class="progress-bar overflow-visible bg-{% if data['mem_usage']['usage'] >= 85 %}danger{% elif data['mem_usage']['usage'] >= 60 %}warning{% else %}data['mem_usage']['usage']{% endif %}" style="width: {{ data['mem_usage']['usage'] }}%">{{ data['mem_usage']['used'] }}GB / {{ data['mem_usage']['total'] }}GB</div>
+                </div>
+                {% if data['system'] != 'Windows' %}
+                <small>Swap</small> {{ data['swap_usage']['usage'] }}%
+                <div class="progress">
+                  <div class="progress-bar overflow-visible bg-{% if data['swap_usage']['usage'] >= 85 %}danger{% elif data['swap_usage']['usage'] >= 60 %}warning{% else %}data['swap_usage']['usage']{% endif %}" style="width: {{ data['swap_usage']['usage'] }}%">{{ data['swap_usage']['used'] }}GB / {{ data['swap_usage']['total'] }}GB</div>
+                </div>
+                {% endif %}
+              </div>
+              <div class="col">
+                {% for disk in data['disk'] %}
+                <small>{{ disk['mountpoint'] }}</small> {{ disk['usage'] }}%
+                <div class="progress">
+                  <div class="progress-bar overflow-visible bg-{% if disk['usage'] >= 85 %}danger{% elif disk['usage'] >= 60 %}warning{% else %}success{% endif %}  overflow-visible text-dark" style="width: {{ disk['usage'] }}%">{{ disk['used'] }}GB / {{ disk['total'] }}GB</div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="col">
+                <small>上传：</small> {{ (data['network']['sent']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['sentd']/1024/1024/data['recordd'])|round(2) }}MB/s)<br>
+                <small>下载：</small> {{ (data['network']['received']/1024/1024/1024)|round(2) }}GB ({{ (data['network']['receivedd']/1024/1024/data['recordd'])|round(2) }}MB/s)
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

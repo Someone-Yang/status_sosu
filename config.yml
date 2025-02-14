@@ -12,7 +12,7 @@ host:
 web:
   # 设置展示页面的主题
   # 模板保存在 templates 目录
-  theme: "mdui"
+  theme: "bootstrap"
   # 被测端未上传数据标记为警告的时间间隔
   warning-timed: 120
   # 被测端未上传数据标记为离线的时间间隔
